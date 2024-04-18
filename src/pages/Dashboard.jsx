@@ -37,6 +37,7 @@ export const Dashboard=()=>{
               description={complaint.description}
               createdAt={complaint.createdAt}
               updatedAt={complaint.updatedAt}
+              image={complaint.image}
               />
             </div>
           ))}

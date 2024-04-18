@@ -1,12 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "../components/Button";
 
-export const Card = ({id, location, category, description, createdAt, updatedAt,image }) => {
+export const Card = ({id, location, category, description, createdAt, updatedAt,image,statusData }) => {
   const [status, setStatus] = useState('Update Status'); // default status
   
   console.log(status,id)
   // const {base64String}
   
+  useEffect(() => {
+    const updateStatusInBackend = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/updateStatus', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: id,
+            status: status,
+          }),
+        });
+
+        const data = await response.json();
+        console.log("Updated Detail:", data);
+      } catch (error) {
+        console.error("Error updating complaint details:", error);
+      }
+    };
+
+    if (status !== 'Update Status') {
+      updateStatusInBackend();
+    }
+  }, [status, id]);
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
@@ -28,11 +53,27 @@ export const Card = ({id, location, category, description, createdAt, updatedAt,
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-center", alignItems: "center", paddingTop: "10px" }}>
           <p style={{ paddingRight: "10px" }}>Status:</p>
           <select value={status} onChange={handleStatusChange} style={{ padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}>
-            <option disabled hidden value="Update Status">Update Status</option>
-            <option value="Inprocess">Inprocess</option>
-            <option value="Completed">Completed</option>
-            {/* Add more options as needed */}
-          </select>
+  {statusData === "Update Status" ? (
+    <>
+      <option disabled hidden value="Update Status">{statusData}</option>
+      <option value="Inprocess">Inprocess</option>
+      <option value="Completed">Completed</option>
+    </>
+  ) : statusData === "Completed" ? (
+    <>
+      <option value="Completed">{statusData}</option>
+      <option value="Inprocess">Inprocess</option>
+    </>
+  ) : (
+    <>
+      <option value="Inprocess">Inprocess</option>
+      <option value="Completed">Completed</option>
+    </>
+  )}
+</select>
+
+
+
       
         </div>
       </div>

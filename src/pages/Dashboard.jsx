@@ -5,10 +5,11 @@ import { Card } from "./Card"
 
 
 export const Dashboard=()=>{
-
+    let cnt = 1;
     const [data,setData]=useState(null);
     const [filter,setFilter]=useState("")
     // const[complaint,setComplaint]=useState([])
+    
     
     useEffect(() => {
         const fetchBalance = async () => {
@@ -29,7 +30,8 @@ export const Dashboard=()=>{
       }, [filter]);
 
     return <div style={{backgroundColor:"#EEEEEE"}}>
-      <div className="my-2">
+      <br></br>
+      <div className="my-2" style={{width: "300px", textAlign:"center", margin: "0 auto"}}>
             <input onChange={(e)=>{
                 setFilter(e.target.value)
             }}type="text" placeholder="Search Users..." className="w-full px-2 py-1 border rounded border-slate-300"/>
@@ -39,7 +41,9 @@ export const Dashboard=()=>{
           {console.log(data)}
           {data.map((complaint, index) => (
             <div key={index}>
-              <Card id={complaint._id} 
+              <Card 
+              count = {cnt++}
+              id={complaint._id} 
               location={complaint.location} 
               category={complaint.category} 
               description={complaint.description}

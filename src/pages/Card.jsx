@@ -43,10 +43,10 @@ export const Card = ({id,email, location, category, description, createdAt, upda
 
   return (
     <div style={{ padding: 10, display: "flex", flexDirection: "row", justifyContent: "flex-center", border: "2px", borderRadius: "5px", borderBlockColor: "#ffffff" }}>
-      <div style={{ padding: 50, paddingLeft: 20 ,paddingRight:20,paddingTop:30,backgroundColor: "white", width: 320, background: "white", alignItems: "center", justifyContent: "center", borderRadius: "15px" }}>
+      <div style={{ padding: 50, paddingLeft: 20 ,paddingRight:20,paddingTop:30,backgroundColor: "white", width: 320, background: "white", alignItems: "center", justifyContent: "center", borderRadius: "7px" }}>
         {/* <img src="public\c-6.jpg" alt="react logo" style={{ width: '400px', paddingBottom: "10px" }} /> */}
-        <h3 className={"rounded-full"} style={{fontWeight:'bold', backgroundColor:"#FFBF00",position:'absolute',padding: '12px'}}>{count}</h3>
-        {/* <br></br><br></br> */}
+        <h3 style={{fontWeight:'bold', backgroundColor:"#FFBF00",position:'relative',padding: '10px', borderRadius: '7px'}}>Complaint no. - {count}</h3>
+        <br></br>
         <img src={`data:image/jpeg;base64,${image}`}  style={{ width: '290px',height: '180px', borderRadius: '7px'}}/>
         <br></br>
         <h3>Email: {email}</h3>

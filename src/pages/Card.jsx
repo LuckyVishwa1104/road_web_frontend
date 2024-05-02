@@ -3,6 +3,7 @@ import { Button } from "../components/Button";
 
 export const Card = ({id,email, location, category, description, createdAt, updatedAt,image,statusData,count}) => {
   const [status, setStatus] = useState('Update Status'); // default status
+  const [updateDate,setUpdateDate]=useState(updatedAt);
   
   console.log(status,id)
   // const {base64String}
@@ -22,7 +23,9 @@ export const Card = ({id,email, location, category, description, createdAt, upda
         });
 
         const data = await response.json();
-        console.log("Updated Detail:", data);
+
+        console.log("Updated Detail:", data.success.updatedAt);
+        setUpdateDate(data.success.updatedAt)
       } catch (error) {
         console.error("Error updating complaint details:", error);
       }
@@ -54,7 +57,7 @@ export const Card = ({id,email, location, category, description, createdAt, upda
         <p>Category: {category.join(", ")}</p>
         <p>Description: {description}</p>
         <p>Created At: {new Date(createdAt).toLocaleString()}</p>
-        <p>Updated At: {new Date(updatedAt).toLocaleString()}</p>
+        <p>Updated At: {new Date(updateDate).toLocaleString()}</p>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-center", alignItems: "center", paddingTop: "10px" }}>
           <p style={{ paddingRight: "10px" }}>Status :</p>
           <select value={status} onChange={handleStatusChange} style={{ padding: "5px", borderRadius: "5px", border: "1px solid #ccc" }}>

@@ -12,7 +12,7 @@ export const Team = () => {
   ];
 
   return (
-    <Layout>
+    <div className="pt-12">
       <div className="my-15 text-center">
         <h4 className="font-bold my-2 text-2xl md:text-3xl">Our Team</h4>
         
@@ -34,7 +34,7 @@ export const Team = () => {
           {/* Your text content here */}
         </p>
       </div>
-    </Layout>
+    </div>
   );
 };
 

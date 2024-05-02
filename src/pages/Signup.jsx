@@ -6,6 +6,8 @@ import { InputBox } from "../components/InputBox"
 import SubHeading from "../components/SubHeading"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import Banner from "../images/banner.jpg";
+
 
 
 export const Signup = () => {
@@ -13,9 +15,10 @@ export const Signup = () => {
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    // const [email,setEmail]=useState("");
     const navigate=useNavigate();
 
-    return <div className="flex justify-center bg-gray-900 h-screen">
+    return <div className="flex justify-center bg-gray-900 h-screen" style={{ backgroundImage: `url(${Banner})` }}>
             {/* <div className="bg-white">
             username is {email}
             password is {password}
@@ -43,11 +46,13 @@ export const Signup = () => {
                 <div className="pt-4">
                     <Button onClick={async() => {
                         const response=await axios.post("http://localhost:3000/registration", {
-                            email,
+                            firstName,
+                            lastName,
+                            email:username,
                             password
                         }).then(function(response){
-                            if(response.data.message=="User created successfully"){
-                                navigate("/")
+                            if(response.data.success=="User Registered Successfully"){
+                                navigate("/signin")
                             }
                             else{
                                 alert("you already have an account")
@@ -56,7 +61,7 @@ export const Signup = () => {
                         localStorage.setItem("token",response.data.token)
                     }} label={"Sign up"} />
                 </div>
-                <BottomWarning label={"Already have an account ? "} buttonText={"Sign In"} to={"/"} />
+                <BottomWarning label={"Already have an account ? "} buttonText={"Sign In"} to={"/signin"} />
                 {/* <BottomWarning label={"Already have an account ? "} buttonText={"Sign In"} to={"/signin"} /> */}
             </div>
         </div>

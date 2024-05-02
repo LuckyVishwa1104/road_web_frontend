@@ -28,7 +28,7 @@ export const Services = () => {
   };
 
   return (
-    <Layout>
+    <>
       <div className="my-15 text-center">
         <h4 className="font-bold my-2 text-2xl md:text-3xl">Service Categorization</h4>
         
@@ -70,9 +70,10 @@ export const Services = () => {
           </div>
         </div>
         
+        
         {/* Display hovered service name */}
       </div>
-    </Layout>
+    </>
   );
 };
 

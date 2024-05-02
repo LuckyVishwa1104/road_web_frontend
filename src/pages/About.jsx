@@ -13,8 +13,9 @@ export const About = () => {
     { src: Cancelled, number: '40', name: 'Cancelled' }
   ];
 
+
   return (
-    <Layout>
+  
       <div className="my-15 text-center">
         <h4 className="font-bold my-2 text-2xl md:text-3xl">Team Statistics</h4>
         
@@ -37,7 +38,7 @@ export const About = () => {
           {/* Your text content here */}
         </p>
       </div>
-    </Layout>
+
   );
 };
 

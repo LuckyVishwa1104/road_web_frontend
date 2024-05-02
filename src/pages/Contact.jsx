@@ -3,7 +3,8 @@ import Layout from "./../components/Layout/Layout";
 
 export const Contact = () => {
   return (
-    <Layout>
+<>
+
       <div className="my-5 text-center">
         <h4 className="font-bold mb-2 text-2xl">Contact Us</h4>
       </div>
@@ -77,7 +78,7 @@ export const Contact = () => {
           </table>
         </div>
       </div>
-    </Layout>
+  </>
   );
 };
 

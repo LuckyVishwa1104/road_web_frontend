@@ -1,45 +1,57 @@
-import React from "react";
-import Layout from "./../components/Layout/Layout";
+import React, { useState, useEffect } from "react";
 import Registered from "../images/Registered.png";
 import Resolved from "../images/Resolved.png";
 import Inprogress from "../images/Inprogress.png";
 import Cancelled from "../images/Cancelled.png";
+import axios from "axios";
 
 export const About = () => {
+  const [successData, setSuccessData] = useState([]);
+
   const teamMembers = [
-    { src: Registered, number: '10', name: 'Registered' },
-    { src: Resolved, number: '20', name: 'Resolved' },
-    { src: Inprogress, number: '30', name: 'Inprogress' },
-    { src: Cancelled, number: '40', name: 'Cancelled' }
+    { src: Registered, number: successData[0], name: 'Registered' },
+    { src: Resolved, number: successData[1], name: 'Resolved' },
+    { src: Inprogress, number: successData[2], name: 'Inprogress' },
+    { src: Cancelled, number: '2', name: 'Cancelled' }
   ];
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://road-backend.vercel.app/getAllComplaintCount");
+        if (response.data.status) {
+          setSuccessData(response.data.success);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
-  
-      <div className="my-15 text-center">
-        <h4 className="font-bold my-2 text-2xl md:text-3xl">Team Statistics</h4>
-        
-        <div className="flex justify-center flex-wrap mx-10 md:mx-20 lg:mx-40">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="flex flex-col items-center m-10">
-              <img 
-                src={member.src} 
-                alt={member.name} 
-                className="w-40 md:w-48 rounded-lg"
-              />
-              <div className="text-lg font-bold mt-3">{member.number}</div>
-              <div className="text-base mt-1">{member.name}</div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Additional content */}
-        <p>
-          {/* Your text content here */}
-        </p>
+    <div className="my-15 text-center">
+      <h4 className="font-bold my-2 text-2xl md:text-3xl">Team Statistics</h4>
+
+      <div className="flex justify-center flex-wrap mx-10 md:mx-20 lg:mx-40">
+        {teamMembers.map((member, index) => (
+          <div key={index} className="flex flex-col items-center m-10">
+            <img
+              src={member.src}
+              alt={member.name}
+              className="w-40 md:w-48 rounded-lg"
+            />
+            <div className="text-lg font-bold mt-3">{member.number}</div>
+            <div className="text-base mt-1">{member.name}</div>
+          </div>
+        ))}
       </div>
 
+      {/* Additional content */}
+      <p>
+        {/* Your text content here */}
+      </p>
+    </div>
   );
 };
-
-

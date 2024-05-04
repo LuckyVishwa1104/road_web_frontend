@@ -42,7 +42,7 @@ export const About = () => {
               alt={member.name}
               className="w-40 md:w-48 rounded-lg"
             />
-            <div className="text-lg font-bold mt-3">{member.number}</div>
+            <div className="text-2xl font-bold mt-3">{member.number}</div>
             <div className="text-base mt-1">{member.name}</div>
           </div>
         ))}

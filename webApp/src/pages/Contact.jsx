@@ -1,13 +1,34 @@
 import React from "react";
-import Layout from "./../components/Layout/Layout";
-
+import { FaEnvelope, FaPhone, FaDownload } from 'react-icons/fa';
 export const Contact = () => {
   return (
-<>
+    <>
 
       <div className="my-5 text-center">
         <h4 className="font-bold mb-2 text-2xl">Contact Us</h4>
       </div>
+
+      <div className="px-4">
+        <div className="flex justify-evenly flex-wrap mx-10 md:mx-20 lg:mx-40">
+          <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2">
+            <FaEnvelope size={24} />
+            <h3 className="text-lg mt-2">Send us an email</h3>
+            <h4 className="text-sm mt-1">example@example.com</h4>
+          </div>
+          <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2">
+            <FaPhone size={24} />
+            <h3 className="text-lg mt-2">Call us</h3>
+            <h4 className="text-sm mt-1">+1234567890</h4>
+          </div>
+          <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2">
+            <FaDownload size={24} />
+            <h3 className="text-lg mt-2">Get our app</h3>
+            <h4 className="text-sm mt-1">Download Now</h4>
+          </div>
+        </div>
+      </div>
+
+
       <div className="flex justify-center items-center flex-col my-3">
         <div className="w-full md:w-3/4 lg:w-2/4">
           <table className="w-full border-collapse border border-black">
@@ -78,8 +99,6 @@ export const Contact = () => {
           </table>
         </div>
       </div>
-  </>
+    </>
   );
 };
-
-// export default Contact;

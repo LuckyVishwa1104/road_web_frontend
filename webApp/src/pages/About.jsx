@@ -43,15 +43,11 @@ export const About = () => {
               className="w-40 md:w-48 rounded-lg"
             />
             <div className="text-2xl font-bold mt-3">{member.number}</div>
-            <div className="text-base mt-1">{member.name}</div>
+            <div className="text-lg mt-1">{member.name}</div>
           </div>
         ))}
       </div>
 
-      {/* Additional content */}
-      <p>
-        {/* Your text content here */}
-      </p>
     </div>
   );
 };

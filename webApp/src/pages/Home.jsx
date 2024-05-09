@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Banner from "../images/banner.jpg";
 import { About } from "./About.jsx";
@@ -9,6 +9,8 @@ import Footer from "../components/Layout/Footer.jsx";
 
 // initialized on remote
 export const Home = () => {
+  const [activeSection, setActiveSection] = useState('home');
+  // const [color,setColor]=useState("gray");
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -16,6 +18,29 @@ export const Home = () => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const sections = ['home', 'about-us', 'services', 'team','contact'];
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const { offsetTop, offsetHeight } = el;
+          if (scrollPosition >= offsetTop && scrollPosition <= offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   return (
     <>
@@ -25,30 +50,25 @@ export const Home = () => {
         <div className="pt-1.5 pl-2"><h1 className="text-3xl">ROADSAFE</h1></div>
         <div>
         <ul className='relative flex flex-col justify-start md:flex-row p-4'>
-          <li className='px-5 text-base'>
+          <li className={`px-5 text-base ${activeSection === 'home' ? ' text-white' : ''}`}>
             <button onClick={() => scrollToSection('home')} 
-            onMouseOver={(e) => e.target.style.color = "white"}
-            onMouseOut={(e) => e.target.style.color = "black"}>Home</button>
+            >Home</button>
           </li>
-          <li className='px-5'>
-            <button onClick={() => scrollToSection('about')}
-            onMouseOver={(e) => e.target.style.color = "white"}
-            onMouseOut={(e) => e.target.style.color = "black"}>About</button>
+          <li className={`px-5 text-base ${activeSection === 'about-us' ? ' text-white' : ''}`}>
+            <button onClick={() => scrollToSection('about-us')}
+            >About</button>
           </li>
-          <li className='px-5'>
-            <button onClick={() => scrollToSection('services')}
-            onMouseOver={(e) => e.target.style.color = "white"}
-            onMouseOut={(e) => e.target.style.color = "black"}>Services</button>
+          <li className={`px-5 text-base ${activeSection === 'services' ? ' text-white' : ''}`}>
+            <button onClick={(e) =>{ scrollToSection('services');}}
+            >Services</button>
           </li>
-          <li className='px-5'>
+          <li className={`px-5 text-base ${activeSection === 'team' ? ' text-white' : ''}`}>
             <button onClick={() => scrollToSection('team')}
-            onMouseOver={(e) => e.target.style.color = "white"}
-            onMouseOut={(e) => e.target.style.color = "black"}>Team</button>
+            >Team</button>
           </li>
-          <li className='px-5'>
+          <li className={`px-5 text-base ${activeSection === 'contact' ? ' text-white' : ''}`}>
             <button onClick={() => scrollToSection('contact')}
-            onMouseOver={(e) => e.target.style.color = "white"}
-            onMouseOut={(e) => e.target.style.color = "black"}>Contact</button>
+            >Contact</button>
           </li>
         </ul>
         </div>
@@ -121,7 +141,7 @@ export const Home = () => {
           </div>
         </div>
 
-        <div id="about" className="pt-12 border-b-2 border-gray-700">
+        <div id="about-us" className="pt-12 border-b-2 border-gray-700">
           <About />
         </div>
 

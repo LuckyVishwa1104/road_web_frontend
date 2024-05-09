@@ -27,13 +27,18 @@ export const Signin=()=>{
                 }} label={"Password"} placeholder={"pasword"}/>
                 <div className="pt-3">
                     <Button onClick={async() => {
-                        const response=await axios.post("https://road-backend.vercel.app/login", {
-                            email:username,
-                            password:password
-                        })
-                        console.log("clicked")
-                        localStorage.setItem("token",response.data.token);
-                        navigate("/dashboard");
+                        if(password.length<6){
+                            alert("enter password with 6 or more digits")
+                        }else{
+                            
+                            const response=await axios.post("https://road-backend.vercel.app/login", {
+                                email:username,
+                                password:password
+                            })
+                            console.log("clicked")
+                            localStorage.setItem("token",response.data.token);
+                            navigate("/dashboard");
+                        }
                     }} label={"Sign in"}/>
                 </div>
                 <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"}/>

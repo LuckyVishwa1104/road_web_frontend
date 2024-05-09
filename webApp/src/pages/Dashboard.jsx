@@ -36,7 +36,7 @@ export const Dashboard=()=>{
 
       useEffect(() => {
         const token = localStorage.getItem("token");
-        if (!token) {
+        if (!token || token=='undefined') {
           navigate("/signin"); // Redirect to sign-in page if token is not present
         } else {
           try {

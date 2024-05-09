@@ -9,22 +9,27 @@ export const Contact = () => {
       </div>
 
       <div className="px-4">
-        <div className="flex justify-evenly flex-wrap mx-10 md:mx-20 lg:mx-40">
-          <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2">
-            <FaEnvelope size={24} />
-            <h3 className="text-lg mt-2">Send us an email</h3>
-            <h4 className="text-sm mt-1">example@example.com</h4>
-          </div>
-          <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2">
-            <FaPhone size={24} />
+        <div className="flex justify-center flex-wrap mx-10 md:mx-20 lg:mx-40">
+          <a href={`mailto:luckyvishwa1104@gmail`} className="text-blue-500" target="blank">
+          <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2"> 
+            <FaEnvelope size={24} className="text-red-500"/>
+            <h3 className="text-lg mt-2 text-black">Send us email</h3>
+            <h4 className="text-sm mt-1 text-black">help@roadsafe.com</h4>
+          </div></a>
+          
+          <a href="" target="blank">
+          <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2 mr-5 ml-5">
+            <FaPhone size={24} className="text-green-500"/>
             <h3 className="text-lg mt-2">Call us</h3>
-            <h4 className="text-sm mt-1">+1234567890</h4>
-          </div>
+            <h4 className="text-sm mt-1">1800-00-0000</h4>
+          </div></a>
+
+          <a href={`mailto:luckyvishwa1104@gmail`} target="blank">
           <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2">
-            <FaDownload size={24} />
+            <FaDownload size={24} className="text-yellow-500"/>
             <h3 className="text-lg mt-2">Get our app</h3>
             <h4 className="text-sm mt-1">Download Now</h4>
-          </div>
+          </div></a>
         </div>
       </div>
 

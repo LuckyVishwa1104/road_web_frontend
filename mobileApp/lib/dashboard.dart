@@ -94,8 +94,8 @@ class _DashboardState extends State<Dashboard> {
   late PermissionStatus permissionGranted;
   late LocationData locationData;
   LocationData? currentLocation; //setting location state
-  late double latitude;
-  late double longitude;
+  late double? latitude;
+  late double? longitude;
   String address = 'Your address'; //setting address
 
   Future<dynamic> getLocation() async {
@@ -345,7 +345,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         onPressed: () {
                           getLocation();
-                          getLocationDetails(latitude, longitude);
+                          getLocationDetails(latitude!, longitude!);
                         }),
                   ),
                 ],

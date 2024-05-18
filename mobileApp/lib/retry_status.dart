@@ -12,11 +12,10 @@ class retry extends StatefulWidget {
 }
 
 class _retryState extends State<retry> {
-
   late SharedPreferences prefs;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     initSharedPref();
   }
@@ -40,9 +39,13 @@ class _retryState extends State<retry> {
             children: [
               Text(
                 "There is issue in raising your complaint please, Retry it!",
-                style: TextStyle(fontSize: 25, ),
+                style: TextStyle(
+                  fontSize: 25,
+                ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Center(
                 child: MaterialButton(
                   color: Colors.amber,
@@ -52,15 +55,24 @@ class _retryState extends State<retry> {
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Retry', style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,),),
+                      Text(
+                        'Retry',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                     ],
                   ),
                   onPressed: () {
                     Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Dashboard(token: prefs.getString('token'),)),
-                );
-                },
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Dashboard(
+                                token: prefs.getString('token'),
+                              )),
+                    );
+                  },
                 ),
               ),
             ],

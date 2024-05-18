@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:road_safe_app/sign_in_page.dart';
@@ -42,9 +41,9 @@ class _SignUpState extends State<SignUp> {
     base64String = imageToBase64(compressedImageData);
 
     // image controller
-    print(selectedImage);
-    print(base64String);
-    print("byte printed");
+    // print(selectedImage);
+    // print(base64String);
+    // print("byte printed");
   }
 
   Future pickImageFromCamera() async {
@@ -55,7 +54,7 @@ class _SignUpState extends State<SignUp> {
     });
 
     // image controller
-    print(selectedImage);
+    // print(selectedImage);
     //
   }
 
@@ -97,13 +96,13 @@ class _SignUpState extends State<SignUp> {
 
       var jsonResponse = jsonDecode(response.body);
 
-      print(jsonResponse['status']);
+      // print(jsonResponse['status']);
 
       if (jsonResponse['status']) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignInPage()));
       } else {
-        print("Something went wrong!!!");
+        // print("Something went wrong!!!");
         isLoading = false;
       }
     } else {
@@ -319,15 +318,16 @@ class _SignUpState extends State<SignUp> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: ElevatedButton(
                           onPressed: isLoading ? null : registerUser,
-                child: isLoading
-                    ? SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                            ),
-                      )
-                    : const Text('Sign In'),
+                          child: isLoading
+                              ? SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.blue),
+                                  ),
+                                )
+                              : const Text('Sign Up'),
                         )),
                     const SizedBox(
                       height: 7,

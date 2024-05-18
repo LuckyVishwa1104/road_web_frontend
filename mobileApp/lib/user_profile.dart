@@ -26,9 +26,9 @@ class _user_profileState extends State<user_profile> {
 
     Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(widget.token);
     email = jwtDecodedToken['email'];
-    print("my_complaints");
-    print(email);
-    print("my_complaints");
+    // print("my_complaints");
+    // print(email);
+    // print("my_complaints");
     userDetails(email);
   }
 
@@ -45,10 +45,10 @@ class _user_profileState extends State<user_profile> {
     var jsonResponse = jsonDecode(response.body);
 
     items = jsonResponse['success'];
-    print("below is response body");
-    print(jsonResponse);
-    print("below is items body");
-    print(items);
+    // print("below is response body");
+    // print(jsonResponse);
+    // print("below is items body");
+    // print(items);
 
     setState(() {
       isLoading = false; // Set isLoading to false after getting the response
@@ -135,7 +135,7 @@ class _user_profileState extends State<user_profile> {
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
-                                 // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
+                            // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
                           ),
                         ),
                       ],
@@ -168,7 +168,7 @@ class _user_profileState extends State<user_profile> {
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
-                                 // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
+                            // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
                           ),
                         ),
                       ],
@@ -201,7 +201,7 @@ class _user_profileState extends State<user_profile> {
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
-                                 // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
+                            // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
                           ),
                         ),
                       ],
@@ -231,11 +231,12 @@ class _user_profileState extends State<user_profile> {
                           ),
                         ),
                         TextSpan(
-                          text: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(items![0]['createdAt']).toLocal()),
+                          text: DateFormat('yyyy-MM-dd HH:mm:ss').format(
+                              DateTime.parse(items![0]['createdAt']).toLocal()),
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
-                                 // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
+                            // Ensure the text color is set, as TextSpan doesn't inherit color from RichText
                           ),
                         ),
                       ],

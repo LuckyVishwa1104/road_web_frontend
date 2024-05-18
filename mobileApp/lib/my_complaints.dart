@@ -28,11 +28,11 @@ class _my_complaintState extends State<my_complaint> {
 
     Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(widget.token);
     email = jwtDecodedToken['email'];
-    print("my_complaints");
-    print(email);
+    // print("my_complaints");
+    // print(email);
     Uid = jwtDecodedToken['_id'];
-    print("my_complaints");
-    print(Uid);
+    // print("my_complaints");
+    // print(Uid);
     getComplaintDetails(email);
   }
 
@@ -49,15 +49,15 @@ class _my_complaintState extends State<my_complaint> {
     var jsonResponse = jsonDecode(response.body);
 
     items = jsonResponse['success'];
-    print("below is response body");
-    print(jsonResponse);
-    print("below is items body");
-    print(items);
+    // print("below is response body");
+    // print(jsonResponse);
+    // print("below is items body");
+    // print(items);
 
     cnt = jsonResponse['count'];
-    print("below is cnt body");
-    print(cnt);
-    print(cnt![0]);
+    // print("below is cnt body");
+    // print(cnt);
+    // print(cnt![0]);
 
     setState(() {
       isLoading = false; // Set isLoading to false after getting the response
@@ -73,7 +73,7 @@ class _my_complaintState extends State<my_complaint> {
 
     var jsonResponse = jsonDecode(response.body);
 
-    print(jsonResponse);
+    // print(jsonResponse);
 
     if (jsonResponse['status']) {
       getComplaintDetails(email);
@@ -116,7 +116,10 @@ class _my_complaintState extends State<my_complaint> {
                 child: isLoading
                     ? Center(
                         // Show loading indicator if isLoading is true
-                        child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),),
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.amber),
+                        ),
                       )
                     : Padding(
                         padding: const EdgeInsets.all(8.0),

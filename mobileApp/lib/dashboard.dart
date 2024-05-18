@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:road_safe_app/complaint_status.dart';
@@ -44,13 +43,7 @@ class _DashboardState extends State<Dashboard> {
     base64String = imageToBase64(compressedImageData);
 
     // image controller
-    print(selectedImage);
-    print(base64String);
-    print("byte printed");
-
-    // problem descripion
-    print(problemController.text);
-    //
+    // print(base64String);
   }
 
   Future pickImageFromCamera() async {
@@ -61,7 +54,7 @@ class _DashboardState extends State<Dashboard> {
     });
 
     // image controller
-    print(selectedImage);
+    // print(selectedImage);
     //
   }
 
@@ -147,7 +140,7 @@ class _DashboardState extends State<Dashboard> {
         final data = json.decode(response.body);
         setState(() {
           address = data['display_name'];
-          print(address);
+          // print(address);
         });
       } else {
         // Handle error
@@ -188,9 +181,9 @@ class _DashboardState extends State<Dashboard> {
 
     Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(widget.token);
     email = jwtDecodedToken['email'];
-    print(email);
+    // print(email);
     Uid = jwtDecodedToken['_id'];
-    print(Uid);
+    // print(Uid);
   }
 
   Future loadModel() async {
@@ -202,7 +195,7 @@ class _DashboardState extends State<Dashboard> {
         numThreads: 1,
         useGpu: false);
 
-    print('model loaded');
+    // print('model loaded');
   }
 
 //  Uint8List byte = selectedImage.readAsBytes();
@@ -217,8 +210,8 @@ class _DashboardState extends State<Dashboard> {
 
     // print(byte);
 
-    print(imageHeight);
-    print(imageWidth);
+    // print(imageHeight);
+    // print(imageWidth);
 
     result = await vision.yoloOnImage(
         bytesList: byte,
@@ -241,7 +234,7 @@ class _DashboardState extends State<Dashboard> {
       );
     }
 
-    print(result);
+    // print(result);
     print("Verification done !");
     // print(yoloResults);
   }
@@ -321,20 +314,28 @@ class _DashboardState extends State<Dashboard> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           height: MediaQuery.of(context).size.height * 0.30,
-                          child: Image.file(selectedImage!, fit: BoxFit.fill),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                8.0), // Adjust the radius as needed
+                            child: Image.file(selectedImage!, fit: BoxFit.fill),
+                          ),
                         ),
                       ),
                     )
                   : Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Center(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          color: Colors.grey[400],
-                          child: const Icon(
-                            Icons.image_rounded,
-                            size: 150,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              8.0), // Adjust the radius as needed
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            color: Colors.grey[400],
+                            child: const Icon(
+                              Icons.image_rounded,
+                              size: 150,
+                            ),
                           ),
                         ),
                       ),
@@ -423,7 +424,7 @@ class _DashboardState extends State<Dashboard> {
                             .toList();
 
                         // problem category
-                        print('Selected Options: $selectedChips');
+                        // print('Selected Options: $selectedChips');
                         //
                       },
                     )

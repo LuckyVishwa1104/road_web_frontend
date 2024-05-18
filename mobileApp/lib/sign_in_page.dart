@@ -40,22 +40,22 @@ class _SignInPageState extends State<SignInPage> {
         "email": emailController.text,
         "password": passwordController.text
       };
-      print(reqBody['email']);
-      print(reqBody['password']);
+      // print(reqBody['email']);
+      // print(reqBody['password']);
 
       var response = await http.post(Uri.parse(login),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(reqBody));
 
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
-      print(jsonResponse['status']);
+      // print(jsonResponse);
+      // print(jsonResponse['status']);
 
       if (jsonResponse['status'] != null) {
         myToken = jsonResponse['token'];
-        print("data type of myToken");
-        print(myToken.runtimeType);
-        print(myToken);
+        // print("data type of myToken");
+        // print(myToken.runtimeType);
+        // print(myToken);
         prefs.setString('token', myToken!);
         Navigator.push(
           context,

@@ -15,19 +15,22 @@ exports.raiseComplaint = async (req,res,next) =>{
 
 exports.getComplaintDetails = async (req,res,next) =>{
     try{
-        const {email} = req.body;
+        const email = req.body.email;
 
         let complaint = await ComplaintServices.getComplaintdetails(email);
 
         let allcounts = await ComplaintServices.getComplaintCount(email);
 
-        res.json({status:true,count : allcounts, success:complaint});
+        let count = await ComplaintServices.getAllComplaintCount();
+
+        res.json({status:true,count : allcounts, allCount : count, success:complaint});
     }
     catch(error){
         next(error);
     }
 }
 
+// below is useless API
 exports.getComplaintDetailsAll = async (req,res,next) =>{
     try{
         let complaint = await ComplaintServices.getComplaintdetailsAll();
@@ -39,6 +42,7 @@ exports.getComplaintDetailsAll = async (req,res,next) =>{
     }
 }
 
+// below is useless controller
 exports.getAllComplaintCount= async (req,res,next) => {
     try{
         let count = await ComplaintServices.getAllComplaintCount();
@@ -83,6 +87,21 @@ exports.searchDetails = async (req,res,next) =>{
         const complaint=await ComplaintServices.searchDetails(filter);
 
         res.json({status:true, success:complaint});
+    }
+    catch(error){
+        next(error);
+    }
+}
+
+exports.uploadPhoto = async (req,res,next) => {
+    try{
+        const {email} = req.body;
+
+        const {type} = req.body;
+
+        let photoUpload = await ComplaintServices.uploadPhoto(email,type);
+
+        res.json({status:true, success:photoUpload});
     }
     catch(error){
         next(error);

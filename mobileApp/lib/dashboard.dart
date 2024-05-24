@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:road_safe_app/complaint_status.dart';
 import 'package:road_safe_app/config.dart';
@@ -30,6 +29,9 @@ class _DashboardState extends State<Dashboard> {
   late String img64;
   late String base64String;
   bool isLoading = false;
+  late List<String> parts;
+  late String type;
+  late Uint8List imageData;
 
   Future pickImageFromGallery() async {
     final returnedImage =
@@ -38,9 +40,11 @@ class _DashboardState extends State<Dashboard> {
       selectedImage = io.File(returnedImage!.path);
     });
 
-    Uint8List imageData = await readImageFile(selectedImage!.path);
-    Uint8List compressedImageData = await compressImage(imageData, 50);
-    base64String = imageToBase64(compressedImageData);
+    imageData = await readImageFile(selectedImage!.path);
+    String selectedImg = selectedImage.toString();
+    parts = selectedImg.split('.');
+    String extension = parts[parts.length - 1];
+    type = extension[0] + extension[1] + extension[2];
   }
 
   Future pickImageFromCamera() async {
@@ -49,6 +53,12 @@ class _DashboardState extends State<Dashboard> {
     setState(() {
       selectedImage = io.File(returnedImage!.path);
     });
+
+    imageData = await readImageFile(selectedImage!.path);
+    String selectedImg = selectedImage.toString();
+    parts = selectedImg.split('.');
+    String extension = parts[parts.length - 1];
+    type = extension[0] + extension[1] + extension[2];
   }
 
   Future<Uint8List> readImageFile(String filePath) async {
@@ -57,13 +67,13 @@ class _DashboardState extends State<Dashboard> {
   }
 
   // Function to compress image
-  Future<Uint8List> compressImage(Uint8List imageData, int quality) async {
-    List<int> compressedData = await FlutterImageCompress.compressWithList(
-      imageData,
-      quality: quality,
-    );
-    return Uint8List.fromList(compressedData);
-  }
+  // Future<Uint8List> compressImage(Uint8List imageData, int quality) async {
+  //   List<int> compressedData = await FlutterImageCompress.compressWithList(
+  //     imageData,
+  //     quality: quality,
+  //   );
+  //   return Uint8List.fromList(compressedData);
+  // }
 
 // Function to convert image to base64 string
   String imageToBase64(Uint8List imageBytes) {
@@ -80,6 +90,8 @@ class _DashboardState extends State<Dashboard> {
   late double longitude;
   String address = 'Your address';
   bool isLoadingLocation = false;
+  late String signedUrl;
+  late String photoKey;
 
   Future<void> getLocation() async {
     setState(() {
@@ -208,7 +220,8 @@ class _DashboardState extends State<Dashboard> {
         context,
         MaterialPageRoute(builder: (context) => complaint_status()),
       );
-      raiseComplaint_();
+      uploadPhoto_();
+      // raiseComplaint_();
     } else {
       Navigator.pushReplacement(
         context,
@@ -217,11 +230,33 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
+  void uploadPhoto_() async {
+    var reqBody = {"email": email, "type": type};
+    print(reqBody);
+
+    var response = await http.post(Uri.parse(uploadPhoto),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody));
+    print(response.body);
+    var jsonResponse = jsonDecode(response.body);
+    signedUrl = jsonResponse["success"][0];
+    photoKey = jsonResponse["success"][1];
+    print(signedUrl);
+    print(photoKey);
+    uploadS3_();
+    raiseComplaint_();
+  }
+
+  void uploadS3_() async {
+    var response = await http.put(Uri.parse(signedUrl),
+        headers: {"Content-Type": "image/$type"}, body: imageData);
+  }
+
   void raiseComplaint_() async {
     var reqBody = {
       "userID": Uid,
       "email": email,
-      "image": base64String,
+      "image": photoKey,
       "location": address,
       "category": result[0]['tag'],
       "description": problemController.text
@@ -446,18 +481,18 @@ class _DashboardState extends State<Dashboard> {
                           isLoading = false;
                         });
                         // Check result and redirect accordingly
-                        if (result.isNotEmpty) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => complaint_status()),
-                          );
-                        } else {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => retry()),
-                          );
-                        }
+                        // if (result.isNotEmpty) {
+                        //   Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => complaint_status()),
+                        //   );
+                        // } else {
+                        //   Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(builder: (context) => retry()),
+                        //   );
+                        // }
                       });
                     }
                   },

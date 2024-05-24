@@ -41,6 +41,7 @@ dependencies:
   flutter_slidable: 
   intl:
   flutter_image_compress: ^2.2.0
+  path: 
 
 dev_dependencies:
   flutter_lints: ^2.0.0

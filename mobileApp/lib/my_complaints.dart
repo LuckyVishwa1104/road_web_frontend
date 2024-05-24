@@ -114,8 +114,9 @@ class _my_complaintState extends State<my_complaint> {
                             : ListView.builder(
                                 itemCount: items!.length,
                                 itemBuilder: (context, int index) {
+                                  int reverseIndex = items!.length - 1 - index;
                                   return Slidable(
-                                    key: const ValueKey(0),
+                                    key: ValueKey(items![reverseIndex]['_id']),
                                     endActionPane: ActionPane(
                                       motion: const ScrollMotion(),
                                       children: [
@@ -125,9 +126,9 @@ class _my_complaintState extends State<my_complaint> {
                                           icon: Icons.delete,
                                           label: 'Delete',
                                           onPressed: (BuildContext context) {
-                                            print('${items![index]['_id']}');
+                                            print('${items![reverseIndex]['_id']}');
                                             deleteItem(
-                                                '${items![index]['_id']}');
+                                                '${items![reverseIndex]['_id']}');
                                           },
                                         ),
                                       ],
@@ -139,9 +140,8 @@ class _my_complaintState extends State<my_complaint> {
                                         title: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
-                                          child: Image.memory(
-                                            base64Decode(
-                                                items![index]['image']),
+                                          child: Image.network(
+                                            items![reverseIndex]['objectUrl'],
                                             width: 50,
                                             height: 150,
                                             fit: BoxFit.cover,
@@ -164,7 +164,7 @@ class _my_complaintState extends State<my_complaint> {
                                                 children: <TextSpan>[
                                                   TextSpan(
                                                     text:
-                                                        '${items![index]['_id']}',
+                                                        '${items![reverseIndex]['_id']}',
                                                     style: const TextStyle(
                                                       fontWeight: FontWeight
                                                           .normal, // Keep the email text normal
@@ -177,13 +177,13 @@ class _my_complaintState extends State<my_complaint> {
                                               ),
                                             ),
                                             Text(
-                                                'Address : ${items![index]['location']}'),
+                                                'Address : ${items![reverseIndex]['location']}'),
                                             Text(
-                                                'Category : ${items![index]['category'][0]}'),
+                                                'Category : ${items![reverseIndex]['category'][0]}'),
                                             Text(
-                                                'Description : ${items![index]['description']}'),
+                                                'Description : ${items![reverseIndex]['description']}'),
                                             Text(
-                                                'Date : ${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(items![index]['createdAt']).toLocal())}'),
+                                                'Date : ${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.parse(items![reverseIndex]['createdAt']).toLocal())}'),
                                             SizedBox(height: 8),
                                             Container(
                                               padding: EdgeInsets.all(8),
@@ -195,10 +195,10 @@ class _my_complaintState extends State<my_complaint> {
                                               ),
                                               // isComplaintRaised ? 'Complaint raised!' : 'No complaint raised',
                                               child: Text(
-                                                ("${items![index]['status']}" ==
+                                                ("${items![reverseIndex]['status']}" ==
                                                         'Update Status')
                                                     ? "Complaint raised!"
-                                                    : "${items![index]['status']}",
+                                                    : "${items![reverseIndex]['status']}",
                                                 style: TextStyle(
                                                     color: Colors.black),
                                               ),

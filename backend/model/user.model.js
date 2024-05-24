@@ -22,11 +22,6 @@ const userSchema = new Schema({
         type: String,
         lowercase: true,
         required: true,
-        // // @ts-ignore
-        // match: [
-        //     /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
-        //     "userName format is not correct",
-        // ],
         unique: true,
     },
     password: {

@@ -3,6 +3,7 @@ const body_parser = require('body-parser');
 const userRouter = require('./routers/user.router');
 const ComplaintRouter = require('./routers/complaint.router');
 const cors = require("cors");
+require('dotenv').config();
 
 const app = express();
 app.use(cors())

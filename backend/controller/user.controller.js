@@ -13,6 +13,21 @@ exports.register = async(req,res,next) => {
     }
 }
 
+exports.uploadUserPhoto = async (req,res,next) => {
+    try{
+        const {email} = req.body;
+
+        const {type} = req.body;
+
+        let photoUpload = await UserService.uploadUserPhoto(email,type);
+
+        res.json({status:true, success:photoUpload});
+    }
+    catch(error){
+        next(error);
+    }
+}
+
 exports.login = async(req,res,next) => {
     try{
         const {email,password} = req.body;
@@ -33,7 +48,6 @@ exports.login = async(req,res,next) => {
             return;
             // throw new Error('Password is invalid.'); 
         }
-        console.log(user.firstName)
 
         let tokenData = {_id: user._id,email: user.email, firstName:user.firstName, lastName:user.lastName};  
 

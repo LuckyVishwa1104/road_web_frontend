@@ -28,6 +28,9 @@ class _SignUpState extends State<SignUp> {
 
   late String img64;
   String? base64String;
+  late List<String> parts;
+  late String type="";
+  late Uint8List imageData;
 
   Future pickImageFromGallery() async {
     final returnedImage =
@@ -36,14 +39,12 @@ class _SignUpState extends State<SignUp> {
       selectedImage = io.File(returnedImage!.path);
     });
 
-    Uint8List imageData = await readImageFile(selectedImage!.path);
-    Uint8List compressedImageData = await compressImage(imageData, 30);
-    base64String = imageToBase64(compressedImageData);
-
-    // image controller
-    // print(selectedImage);
-    // print(base64String);
-    // print("byte printed");
+    imageData = await readImageFile(selectedImage!.path);
+    String selectedImg = selectedImage.toString();
+    parts = selectedImg.split('.');
+    String extension = parts[parts.length - 1];
+    type = extension[0] + extension[1] + extension[2];
+    print(type);
   }
 
   Future pickImageFromCamera() async {
@@ -52,10 +53,12 @@ class _SignUpState extends State<SignUp> {
     setState(() {
       selectedImage = io.File(returnedImage!.path);
     });
-
-    // image controller
-    // print(selectedImage);
-    //
+    imageData = await readImageFile(selectedImage!.path);
+    String selectedImg = selectedImage.toString();
+    parts = selectedImg.split('.');
+    String extension = parts[parts.length - 1];
+    type = extension[0] + extension[1] + extension[2];
+    print(type);
   }
 
   Future<Uint8List> readImageFile(String filePath) async {
@@ -64,17 +67,50 @@ class _SignUpState extends State<SignUp> {
   }
 
   // Function to compress image
-  Future<Uint8List> compressImage(Uint8List imageData, int quality) async {
-    List<int> compressedData = await FlutterImageCompress.compressWithList(
-      imageData,
-      quality: quality,
-    );
-    return Uint8List.fromList(compressedData);
-  }
+  // Future<Uint8List> compressImage(Uint8List imageData, int quality) async {
+  //   List<int> compressedData = await FlutterImageCompress.compressWithList(
+  //     imageData,
+  //     quality: quality,
+  //   );
+  //   return Uint8List.fromList(compressedData);
+  // }
 
   // Function to convert image to base64 string
   String imageToBase64(Uint8List imageBytes) {
     return base64Encode(imageBytes);
+  }
+
+  late String signedUrl;
+  late String photoKey = "";
+
+  void uploadUserPhoto_() async {
+    var reqBody = {"email": emailController.text, "type": type};
+    print(reqBody);
+
+    var response = await http.post(Uri.parse(uploadUserPhoto),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody));
+    print(response.body);
+    var jsonResponse = jsonDecode(response.body);
+    signedUrl = jsonResponse["success"][0];
+    photoKey = jsonResponse["success"][1];
+    print(signedUrl);
+    print(photoKey);
+    uploadS3_();
+    registerUser();
+  }
+
+  void uploadS3_() async {
+    var response = await http.put(Uri.parse(signedUrl),
+        headers: {"Content-Type": "image/$type"}, body: imageData);
+  }
+
+  void endPoint() {
+    if (type.isNotEmpty) {
+      uploadUserPhoto_();
+    } else {
+      registerUser();
+    }
   }
 
   void registerUser() async {
@@ -83,7 +119,7 @@ class _SignUpState extends State<SignUp> {
         isLoading = true;
       });
       var regBody = {
-        "userImage": base64String,
+        "userImage": photoKey,
         "firstName": firstNameController.text,
         "lastName": lastNameController.text,
         "email": emailController.text,
@@ -314,7 +350,7 @@ class _SignUpState extends State<SignUp> {
                     Container(
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: ElevatedButton(
-                          onPressed: isLoading ? null : registerUser,
+                          onPressed: isLoading ? null : endPoint,
                           child: isLoading
                               ? const SizedBox(
                                   width: 20,
@@ -344,7 +380,7 @@ class _SignUpState extends State<SignUp> {
                         },
                         child: Text('Sign In'),
                       ),
-                    )
+                    ),
                   ]),
             ),
           ),

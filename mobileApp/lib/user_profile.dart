@@ -62,7 +62,8 @@ class _user_profileState extends State<user_profile> {
               SizedBox(height: 20),
               if (items != null && items!.isNotEmpty)
                 Center(
-                    child: items![0]['userImage'] != null
+                    child: (
+                            items![0]['userImage'].isNotEmpty)
                         ? Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -73,9 +74,7 @@ class _user_profileState extends State<user_profile> {
                             ),
                             child: CircleAvatar(
                               radius: 100,
-                              backgroundImage: MemoryImage(
-                                base64Decode(items![0]['userImage']),
-                              ),
+                              backgroundImage: NetworkImage(items![1]),
                             ),
                           )
                         : Container(

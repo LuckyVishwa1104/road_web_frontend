@@ -41,8 +41,8 @@ const complaintSchema = new Schema({
     }
 
 
-},{timestamps:true});
+}, { timestamps: true });
 
-const ComplaintModel = db.model('complaint',complaintSchema);
+const ComplaintModel = db.model('complaint', complaintSchema);
 
 module.exports = ComplaintModel;

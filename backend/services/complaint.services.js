@@ -11,7 +11,7 @@ class ComplaintServices {
   }
 
   static async getComplaintdetails(email = "") {
-    // Configure the S3 client
+
     const s3Client = new S3Client({
       region: "ap-south-1",
       credentials: {
@@ -19,36 +19,29 @@ class ComplaintServices {
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       },
     });
-  
-    // Build the query object based on whether email is provided
+
     const query = email ? { email } : {};
-  
-    // Fetch complaint details based on the query
+
     const Complaintdetails = await ComplaintModel.find(query);
-  
-    // Iterate over each complaint detail and generate the object URL
+
     const complaintDetailsWithUrl = await Promise.all(
       Complaintdetails.map(async (item) => {
-        // Generate the signed URL for the image
+
         const command = new GetObjectCommand({
           Bucket: "roadsafecomplaints",
           Key: item.image,
         });
         const photoUrl = await getSignedUrl(s3Client, command);
-  
-        // Return the complaint detail with the object URL
+
         return {
           ...item.toObject(),
           objectUrl: photoUrl,
         };
       })
     );
-  
-    // Return the modified complaint details with object URLs
+
     return complaintDetailsWithUrl;
   }
-  
-  
 
   static async getComplaintCount(email) {
     let allComplaintCount = await ComplaintModel.find({ email }).countDocuments();
@@ -56,12 +49,6 @@ class ComplaintServices {
     let inprocessCount = await ComplaintModel.find().countDocuments({ email: email, status: "Inprocess" });
     return [allComplaintCount, completedCount, inprocessCount];
 
-  }
-
-  // below is useless 
-  static async getComplaintdetailsAll() {
-    const Complaintdetails = await ComplaintModel.find({});
-    return Complaintdetails;
   }
 
   static async getAllComplaintCount() {

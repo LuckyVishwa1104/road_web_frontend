@@ -54,35 +54,29 @@ class UserService {
             const userDetails = await UserModel.findOne({ email });
 
             const userImageKey = userDetails.userImage;
-            console.log(userImageKey);
 
-            if (userImageKey.length > 0){
-            console.log("checkpoint 1");
+            if (userImageKey.length > 0) {
 
-            const s3Client = new S3Client({
-                region: "ap-south-1",
-                credentials: {
-                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-                },
-            });
-            console.log("checkpoint 2");
+                const s3Client = new S3Client({
+                    region: "ap-south-1",
+                    credentials: {
+                        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                    },
+                });
 
-            const command = new GetObjectCommand({
-                Bucket: "roadsafeusers",
-                Key: userImageKey,
-            });
-            console.log("checkpoint 3");
+                const command = new GetObjectCommand({
+                    Bucket: "roadsafeusers",
+                    Key: userImageKey,
+                });
 
-            const photoUrl = await getSignedUrl(s3Client, command);
-            console.log("checkpoint 4");
+                const photoUrl = await getSignedUrl(s3Client, command);
 
-            return [userDetails, photoUrl]}
+                return [userDetails, photoUrl]
+            }
 
-            else{
-                console.log("checkpoint 1");
+            else {
                 const photoUrl = "";
-                console.log("checkpoint 2");
                 return [userDetails, photoUrl]
             }
         }

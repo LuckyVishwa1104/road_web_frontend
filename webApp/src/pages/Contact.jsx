@@ -1,10 +1,8 @@
-// import React from "react";
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { FaEnvelope, FaPhone, FaDownload } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { useState } from 'react';
 
 export const Contact = () => {
 
@@ -13,12 +11,10 @@ export const Contact = () => {
   const handleClick = (e) => {
     setIsBlinking(true);
 
-    // Reset the blinking effect after a short delay
     setTimeout(() => {
       setIsBlinking(false);
-    }, 500); // 1000 milliseconds = 1 second
+    }, 500);
 
-    // Additional logic for form submission or any other action
   };
   const form = useRef();
 
@@ -33,7 +29,6 @@ export const Contact = () => {
       })
       .then(
         () => {
-          // toast.update(id, { render: "All is good", type: "success" });
           toast.success("Message send succeffully")
           setLoading(false)
           e.target.reset();
@@ -56,7 +51,7 @@ export const Contact = () => {
         <div className="flex justify-center flex-wrap mx-10 md:mx-20 lg:mx-40">
           <a href={`mailto:luckyvishwa1104@gmail`} className="text-blue-500" target="blank">
             <div className="border border-gray-300 rounded-lg p-4 flex flex-col items-center h-32 w-56 mb-2 hover:transform hover:scale-110 transition duration-300 ease-in-out">
-            {/* hover:shadow-lg - on-hovwer shadow effect */}
+              {/* hover:shadow-lg - on-hovwer shadow effect */}
               <FaEnvelope size={24} className="text-red-500" />
               <h3 className="text-lg mt-2 text-black">Send us email</h3>
               <h4 className="text-sm mt-1 text-black">help@roadsafe.com</h4>
@@ -95,10 +90,10 @@ export const Contact = () => {
             <textarea id="message" name="message" className="border rounded-md px-3 py-2 w-full h-32"></textarea>
           </div>
           <button
-          type="submit"
-          onClick={handleClick}
-          className={`bg-blue-500 hover:transform hover:scale-110 transition duration-300 ease-in-out text-white py-2 px-4 rounded transition-all ${isBlinking ? 'animate-blink bg-blue-500' : 'animate-blink bg-green-500'}`}
-        >Send</button>
+            type="submit"
+            onClick={handleClick}
+            className={`bg-blue-500 hover:transform hover:scale-110 transition duration-300 ease-in-out text-white py-2 px-4 rounded transition-all ${isBlinking ? 'animate-blink bg-blue-500' : 'animate-blink bg-green-500'}`}
+          >Send</button>
         </form>
       </div>
 

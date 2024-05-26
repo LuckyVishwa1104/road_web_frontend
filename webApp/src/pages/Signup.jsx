@@ -17,9 +17,9 @@ export const Signup = () => {
     const [loading, setLoading] = useState(false);
 
     const handleSignup = async () => {
-        setLoading(true); // Set loading to true when sign up starts
+        setLoading(true);
         try {
-            const response = await axios.post("https://road-backend.vercel.app/registration", {
+            const response = await axios.post("http://127.0.0.1:3000/registration", {
                 firstName,
                 lastName,
                 email: username,
@@ -35,7 +35,7 @@ export const Signup = () => {
             console.error("Error occurred during sign up:", error);
             alert("Error occurred during sign up. Please try again.");
         } finally {
-            setLoading(false); // Set loading to false after sign up completes (success or error)
+            setLoading(false);
         }
     };
 
@@ -70,7 +70,7 @@ export const Signup = () => {
                         setPassword(e.target.value)
                     }} label={"password"} placeholder={"password"} />
                     <div className="pt-4">
-                    <Button onClick={handleSignup} label={loading ? "Signing up..." : "Sign up"} disabled={loading}/>
+                        <Button onClick={handleSignup} label={loading ? "Signing up..." : "Sign up"} disabled={loading} />
                     </div>
                     <BottomWarning label={"Already have an account ? "} buttonText={"Sign In"} to={"/signin"} />
                     {/* <BottomWarning label={"Already have an account ? "} buttonText={"Sign In"} to={"/signin"} /> */}

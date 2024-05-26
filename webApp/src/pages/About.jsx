@@ -18,9 +18,10 @@ export const About = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://road-backend.vercel.app/getAllComplaintCount");
+        const response = await axios.post("http://127.0.0.1:3000/getComplaintDetails");
         if (response.data.status) {
-          setSuccessData(response.data.success);
+          setSuccessData(response.data.allCount);
+          console.log(successData);
         }
       } catch (error) {
         console.error("Error fetching data:", error);

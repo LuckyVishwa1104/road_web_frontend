@@ -7,10 +7,8 @@ import { Team } from "./Team.jsx";
 import { Contact } from "./Contact.jsx";
 import Footer from "../components/Layout/Footer.jsx";
 
-// initialized on remote
 export const Home = () => {
   const [activeSection, setActiveSection] = useState('home');
-  // const [color,setColor]=useState("gray");
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -22,7 +20,7 @@ export const Home = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 2;
-      const sections = ['home', 'about-us', 'services', 'team','contact'];
+      const sections = ['home', 'about-us', 'services', 'team', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -45,36 +43,36 @@ export const Home = () => {
   return (
     <>
       <>
-      <div className="bg-orange-400 fixed w-full z-10">
-      <nav className="flex justify-between">
-        <div className="pt-1.5 pl-2"><h1 className="text-3xl">ROADSAFE</h1></div>
-        <div>
-        <ul className='relative flex flex-col justify-start md:flex-row p-4'>
-          <li className={`px-5 text-base ${activeSection === 'home' ? ' text-white' : ''}`}>
-            <button onClick={() => scrollToSection('home') } className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
-            >Home</button>
-          </li>
-          <li className={`px-5 text-base ${activeSection === 'about-us' ? ' text-white' : ''}`}>
-            <button onClick={() => scrollToSection('about-us')} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
-            >About</button>
-          </li>
-          <li className={`px-5 text-base ${activeSection === 'services' ? ' text-white' : ''}`}>
-            <button onClick={(e) =>{ scrollToSection('services');}} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
-            >Services</button>
-          </li>
-          <li className={`px-5 text-base ${activeSection === 'team' ? ' text-white' : ''}`}>
-            <button onClick={() => scrollToSection('team')} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
-            >Team</button>
-          </li>
-          <li className={`px-5 text-base ${activeSection === 'contact' ? ' text-white' : ''}`}>
-            <button onClick={() => scrollToSection('contact')} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
-            >Contact</button>
-          </li>
-        </ul>
-        </div>
-      </nav>
+        <div className="bg-orange-400 fixed w-full z-10">
+          <nav className="flex justify-between">
+            <div className="pt-1.5 pl-2"><h1 className="text-3xl">ROADSAFE</h1></div>
+            <div>
+              <ul className='relative flex flex-col justify-start md:flex-row p-4'>
+                <li className={`px-5 text-base ${activeSection === 'home' ? ' text-white' : ''}`}>
+                  <button onClick={() => scrollToSection('home')} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
+                  >Home</button>
+                </li>
+                <li className={`px-5 text-base ${activeSection === 'about-us' ? ' text-white' : ''}`}>
+                  <button onClick={() => scrollToSection('about-us')} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
+                  >About</button>
+                </li>
+                <li className={`px-5 text-base ${activeSection === 'services' ? ' text-white' : ''}`}>
+                  <button onClick={(e) => { scrollToSection('services'); }} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
+                  >Services</button>
+                </li>
+                <li className={`px-5 text-base ${activeSection === 'team' ? ' text-white' : ''}`}>
+                  <button onClick={() => scrollToSection('team')} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
+                  >Team</button>
+                </li>
+                <li className={`px-5 text-base ${activeSection === 'contact' ? ' text-white' : ''}`}>
+                  <button onClick={() => scrollToSection('contact')} className="hover:transform hover:scale-110 transition duration-300 ease-in-out"
+                  >Contact</button>
+                </li>
+              </ul>
+            </div>
+          </nav>
 
-      </div>
+        </div>
         <div id="home"
           className="home"
           style={{
@@ -148,7 +146,7 @@ export const Home = () => {
         <div id="services" className="p-12 border-b-2 border-gray-700">
           <Services />
         </div>
-        
+
 
         <div id="team" className="p-50 border-b-2 border-gray-700">
           <Team />
@@ -158,7 +156,7 @@ export const Home = () => {
           <Contact />
         </div>
 
-        <Footer/>
+        <Footer />
 
       </>
     </>

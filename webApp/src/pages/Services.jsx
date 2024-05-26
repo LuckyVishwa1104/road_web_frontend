@@ -48,7 +48,6 @@ export const Services = () => {
             </div>
           ))}
         </div>
-        {/* Display hovered service name */}
       </div>
     </>
   );

@@ -21,10 +21,8 @@ export const Dashboard = () => {
     const fetchBalance = async () => {
       try {
         const response = await axios.post(
-          `https://road-backend.vercel.app/bulk?&filter=${filter}`
+          `http://localhost:3000/bulk?&filter=${filter}`
         );
-
-        // console.log(response.data.success)
         setData(response.data.success)
       } catch (error) {
         console.error("Error fetching balance:", error);
@@ -36,34 +34,32 @@ export const Dashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token || token == 'undefined') {
-      navigate("/signin"); // Redirect to sign-in page if token is not present
+      navigate("/signin");
     } else {
       try {
         console.log(token)
         const decodedToken = jwtDecode(token);
         const adminName = decodedToken.firstName;
         const adminLast = decodedToken.lastName;
-        // Now you have the admin's name, you can use it as needed
         console.log("Admin Name:", adminName);
         setAdminName(adminName);
         setAdminLast(adminLast);
       } catch (error) {
         console.error("Error decoding token:", error);
-        // Handle any errors that occur during token decoding
       }
     }
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/home"); // Redirect to home page after logout
+    navigate("/home");
   };
 
   return (
     <div className="bg-blue-200/20">
       <div id="navbar" className="mb-5 shadow-lg shadow-gray-300/50  flex justify-between rounded-md sticky top-0 bg-white z-10">
         <div className="flex flex-row justify-center h-full ml-4 ">
-          <div className="mt-3.5 pl-2 ">
+          <div className="mt-3.5  ">
             <input onChange={(e) => {
               setFilter(e.target.value)
             }} type="text" placeholder="Search Complaints..." className="px-2 py-1 border rounded border-slate-500 w-40 sm:w-56 md:w-72 lg:w-96 xl:w-900" />
@@ -78,7 +74,7 @@ export const Dashboard = () => {
               <b> {adminName[0]}{adminLast[0]}</b>
             </div>
           </div>
-          <div className="flex flex-col justify-center h-full mr-5 cursor-pointer" onClick={handleLogout}
+          <div className="flex flex-col justify-center h-full mr-3 cursor-pointer" onClick={handleLogout}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
             <FiLogOut size={24} />
@@ -87,7 +83,6 @@ export const Dashboard = () => {
                 Logout
               </span>
             )}
-
           </div>
         </div>
       </div>
@@ -104,7 +99,7 @@ export const Dashboard = () => {
                 description={complaint.description}
                 createdAt={complaint.createdAt}
                 updatedAt={complaint.updatedAt}
-                image={complaint.image}
+                image={complaint.objectUrl}
                 statusData={complaint.status}
                 email={complaint.email}
               />
@@ -113,7 +108,6 @@ export const Dashboard = () => {
         </div>
       ) : (
         <Loader />
-
       )}
       <br />
       <br />

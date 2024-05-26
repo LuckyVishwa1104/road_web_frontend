@@ -19,18 +19,19 @@ export const Signin = () => {
             alert("Please enter correct credentials!");
         } else {
             setLoading(true); // Set loading to true when login starts
-            try {
-                const response = await axios.post("https://road-backend.vercel.app/login", {
+            try { // https://road-backend.vercel.app/login - for remote server
+                const response = await axios.post("http://127.0.0.1:3000/login", {
                     email: username,
                     password: password
                 });
+                console.log(response)
                 localStorage.setItem("token", response.data.token);
                 navigate("/dashboard");
             } catch (error) {
                 console.error("Error occurred during login:", error);
                 alert("Error occurred during login. Please try again.");
             } finally {
-                setLoading(false); // Set loading to false after login completes (success or error)
+                setLoading(false);
             }
         }
     };
@@ -60,7 +61,7 @@ export const Signin = () => {
                         setPassword(e.target.value)
                     }} label={"Password"} placeholder={"pasword"} />
                     <div className="pt-3">
-                    <Button onClick={handleLogin} label={loading ? "Signing in..." : "Sign in"} />
+                        <Button onClick={handleLogin} label={loading ? "Signing in..." : "Sign in"} />
                         <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
                     </div>
                 </div>

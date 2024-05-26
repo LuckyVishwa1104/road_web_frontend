@@ -74,7 +74,15 @@ class ComplaintServices {
   }
 
   static async searchDetails(filter) {
-    const searchDetail = await ComplaintModel.find({
+    const s3Client = new S3Client({
+      region: "ap-south-1",
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+    });
+
+    const Complaintdetails = await ComplaintModel.find({
       $or: [
         { email: { "$regex": filter, "$options": "i" } },
         { location: { "$regex": filter, "$options": "i" } },
@@ -82,7 +90,24 @@ class ComplaintServices {
         { description: { "$regex": filter, "$options": "i" } }
       ]
     });
-    return searchDetail;
+
+    const complaintDetailsWithUrl = await Promise.all(
+      Complaintdetails.map(async (item) => {
+
+        const command = new GetObjectCommand({
+          Bucket: "roadsafecomplaints",
+          Key: item.image,
+        });
+        const photoUrl = await getSignedUrl(s3Client, command);
+
+        return {
+          ...item.toObject(),
+          objectUrl: photoUrl,
+        };
+      })
+    );
+
+    return complaintDetailsWithUrl;
   }
 
   static async uploadPhoto(email, type) {

@@ -21,7 +21,7 @@ export const Dashboard = () => {
     const fetchBalance = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:3000/bulk?&filter=${filter}`
+          `https://road-safe-backend.vercel.app/bulk?&filter=${filter}`
         );
         setData(response.data.success)
       } catch (error) {

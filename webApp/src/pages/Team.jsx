@@ -9,7 +9,7 @@ export const Team = () => {
     { src: img1, name: 'Lucky Vishwakarma', email: 'luckyvishwa1104@gmail', linkedin: 'https://www.linkedin.com/in/lucky-vishwakarma-5194ab228' },
     { src: img2, name: 'Amruta Pradhan', email: 'luckyvishwa1104@gmail', linkedin: 'https://www.linkedin.com/in/lucky-vishwakarma-5194ab228' },
     { src: img2, name: 'Maheen Shaikh', email: 'luckyvishwa1104@gmail', linkedin: 'https://www.linkedin.com/in/lucky-vishwakarma-5194ab228' },
-    { src: img1, name: 'yogesh poul', email: 'yogeshpoul9999@gmail.com', linkedin: 'https://www.linkedin.com/in/yogesh-poul-62293721a/' }
+    { src: img1, name: 'Yogesh Poul', email: 'yogeshpoul9999@gmail.com', linkedin: 'https://www.linkedin.com/in/yogesh-poul-62293721a/' }
   ];
 
   return (

@@ -2,7 +2,7 @@
 // final url = 'https://road-backend.vercel.app/';
 
 // for local server
-final url = 'http://192.168.254.212:3000/';
+final url = 'http://192.168.137.13:3000/';
 
 final registration = url + "registration";
 

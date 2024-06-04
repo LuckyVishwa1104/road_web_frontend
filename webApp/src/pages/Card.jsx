@@ -42,7 +42,7 @@ export const Card = ({ id, email, location, category, description, createdAt, up
       <div style={{ padding: 50, paddingLeft: 20, paddingRight: 20, paddingTop: 30, backgroundColor: "white", width: 340, background: "white", alignItems: "center", justifyContent: "center", borderRadius: "7px" }} className="shadow-md">
         <h3 style={{ fontWeight: 'bold', backgroundColor: "#FFBF00", position: 'relative', padding: '10px', borderRadius: '7px' }}>Complaint no. - {count}</h3>
         <br></br>
-        <img src={image} type="image" style={{ width: '290px', height: '180px', borderRadius: '7px' }} />
+        <img src={image} type="image" style={{ width: '300px', height: '180px', borderRadius: '7px' }} />
         <br></br>
         <h3>Email: {email}</h3>
         <p>Location: {location}</p>

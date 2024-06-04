@@ -7,8 +7,8 @@ import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
 export const Team = () => {
   const teamMembers = [
     { src: img1, name: 'Lucky Vishwakarma', email: 'luckyvishwa1104@gmail', linkedin: 'https://www.linkedin.com/in/lucky-vishwakarma-5194ab228' },
-    { src: img2, name: 'Amruta Pradhan', email: 'luckyvishwa1104@gmail', linkedin: 'https://www.linkedin.com/in/lucky-vishwakarma-5194ab228' },
-    { src: img2, name: 'Maheen Shaikh', email: 'luckyvishwa1104@gmail', linkedin: 'https://www.linkedin.com/in/lucky-vishwakarma-5194ab228' },
+    { src: img2, name: 'Amruta Pradhan', email: 'amupradhan9937@gmail', linkedin: 'https://www.linkedin.com/in/amruta-pradhan-2a470a221' },
+    { src: img2, name: 'Maheen Shaikh', email: 'maheen.sk707@gmail.com', linkedin: 'https://www.linkedin.com/in/maheen-s-b22aa3233/' },
     { src: img1, name: 'Ashutosh Gaware', email: 'luckyvishwa1104@gmail', linkedin: 'https://www.linkedin.com/in/lucky-vishwakarma-5194ab228' }
   ];
 

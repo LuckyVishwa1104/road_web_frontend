@@ -85,6 +85,7 @@ class _SignUpState extends State<SignUp> {
   void uploadS3_() async {
     var response = await http.put(Uri.parse(signedUrl),
         headers: {"Content-Type": "image/$type"}, body: imageData);
+    print(response);
   }
 
   void endPoint() {

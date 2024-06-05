@@ -234,6 +234,7 @@ class _DashboardState extends State<Dashboard> {
   void uploadS3_() async {
     var response = await http.put(Uri.parse(signedUrl),
         headers: {"Content-Type": "image/$type"}, body: imageData);
+    print(response);
   }
 
   void raiseComplaint_() async {
@@ -249,6 +250,7 @@ class _DashboardState extends State<Dashboard> {
     var response = await http.post(Uri.parse(complaintDetails),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody));
+    print(response);
   }
 
   @override

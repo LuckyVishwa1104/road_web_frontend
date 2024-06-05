@@ -126,7 +126,6 @@ export const Home = () => {
                     fontSize: "16px",
                     cursor: "pointer",
                     color: "black",
-                    // backgroundColor: "darkorange",
                     transition: "background-color 0.3s ease",
                   }}
                   onMouseOver={(e) => e.target.style.backgroundColor = "#22c55e"}

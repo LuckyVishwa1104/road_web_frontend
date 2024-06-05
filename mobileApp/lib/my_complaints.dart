@@ -148,10 +148,14 @@ class _my_complaintState extends State<my_complaint> {
                                             fit: BoxFit.cover,
                                           ),
                                         ),
+
                                         subtitle: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
+                                            const SizedBox(
+                                              height: 7,
+                                            ),
                                             RichText(
                                               text: TextSpan(
                                                 text: 'Complaint Id : ',

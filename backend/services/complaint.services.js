@@ -10,6 +10,38 @@ class ComplaintServices {
     return await raiseComplaint.save();
   }
 
+  
+
+  static async getComplaintCount(email) {
+    let allComplaintCount = await ComplaintModel.find({ email }).countDocuments();
+    let completedCount = await ComplaintModel.find().countDocuments({ email: email, status: "Completed" });
+    let inprocessCount = await ComplaintModel.find().countDocuments({ email: email, status: "Inprocess" });
+    return [allComplaintCount, completedCount, inprocessCount];
+
+  }
+
+  static async getAllComplaintCount() {
+    let getAllComplaintCount = await ComplaintModel.find({}).countDocuments();
+    let allCompletedCount = await ComplaintModel.find({ status: "Completed" }).countDocuments();
+    let allInprogressCount = await ComplaintModel.find({ status: "Inprocess" }).countDocuments();
+
+    return [getAllComplaintCount, allCompletedCount, allInprogressCount];
+  }
+
+  static async deleteComplaint(id) {
+    const deleted = await ComplaintModel.findOneAndDelete({ _id: id });
+    return deleted;
+  }
+
+  static async updateComplaintDetails(id, status) {
+    const updateDetail = await ComplaintModel.findByIdAndUpdate(
+      id,
+      { $set: { status: status } },
+      { new: true }
+    );
+    return updateDetail;
+  }
+
   static async getComplaintdetails(email = "") {
 
     const s3Client = new S3Client({
@@ -41,36 +73,6 @@ class ComplaintServices {
     );
 
     return complaintDetailsWithUrl;
-  }
-
-  static async getComplaintCount(email) {
-    let allComplaintCount = await ComplaintModel.find({ email }).countDocuments();
-    let completedCount = await ComplaintModel.find().countDocuments({ email: email, status: "Completed" });
-    let inprocessCount = await ComplaintModel.find().countDocuments({ email: email, status: "Inprocess" });
-    return [allComplaintCount, completedCount, inprocessCount];
-
-  }
-
-  static async getAllComplaintCount() {
-    let getAllComplaintCount = await ComplaintModel.find({}).countDocuments();
-    let allCompletedCount = await ComplaintModel.find({ status: "Completed" }).countDocuments();
-    let allInprogressCount = await ComplaintModel.find({ status: "Inprocess" }).countDocuments();
-
-    return [getAllComplaintCount, allCompletedCount, allInprogressCount];
-  }
-
-  static async deleteComplaint(id) {
-    const deleted = await ComplaintModel.findOneAndDelete({ _id: id });
-    return deleted;
-  }
-
-  static async updateComplaintDetails(id, status) {
-    const updateDetail = await ComplaintModel.findByIdAndUpdate(
-      id,
-      { $set: { status: status } },
-      { new: true }
-    );
-    return updateDetail;
   }
 
   static async searchDetails(filter) {

@@ -14,4 +14,4 @@ router.post('/bulk', ComplaintController.searchDetails);
 
 router.post('/uploadPhoto', ComplaintController.uploadPhoto);
 
-module.exports = router;
+module.exports = router; 

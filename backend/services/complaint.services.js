@@ -27,7 +27,7 @@ class ComplaintServices {
 
     return [getAllComplaintCount, allCompletedCount, allInprogressCount];
   }
-
+ 
   static async deleteComplaint(id) {
     const deleted = await ComplaintModel.findOneAndDelete({ _id: id });
     return deleted;
